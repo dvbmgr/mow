@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/assets/css.css" />
+        <title>Music</title>
+    </head>
+    
+    <body>
+        <div class="content">
+            <h1><a href="{{ pageparent }}">{{ pagetitle }}</a></h1>
+        </div>
+        {% block aside%}
+        {% endblock %}
+        <div class="content">
+            {% if subtitle %}<h2><a href="{{ subparent }}">{{ subtitle }}</a></h2>{% endif %}
+            {% block content %}
+            <ul>
+                {% for item in items %}
+                <li><a href="{{ item.URL }}">{{ item.TITLE }}</a></li>
+                {% endfor %}
+            </ul>
+            {% endblock %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,14 @@
+{% extends "template.html" %}
+
+{% block aside %}
+<div class="aside">
+    <img src="{{ imageurl }}" width="180" />
+    <audio controls="controls" width="180">
+		<source src="{{ rawurl }}" type="audio/mpeg" />
+    </audio>
+</div>
+{% endblock %}
+
+{% block content %}
+    <p>{{ lyrics }}</p>
+{% endblock %}

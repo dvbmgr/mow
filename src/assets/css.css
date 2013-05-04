@@ -1,0 +1,49 @@
+html {
+    background-color: #113560;
+    color: white;
+    font-family: "Myriad Pro", Myriad, Arial, Helvetica, sans-serif;
+}
+body {
+    padding-left: 50px;
+    padding-top: 120px;
+}
+.content {
+    width: 400px;
+    margin-left: 200px;
+}
+.aside {
+    margin-left: 5px;
+    width: 181px;
+    float: left;
+}
+h1 {
+    color: #EAEA21;
+    font-weight: lighter;
+    font-size: 48pt;
+    margin-bottom: 0px;
+}
+h2 {
+    color: #A3A3A3;
+    font-weight: lighter;
+    font-size: 20pt;
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+ul {
+    margin-top: 0px;
+}
+ul, li {
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    margin-bottom: 5px;
+    font-size: 14pt;
+    font-weight: lighter;
+}
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+audio {
+	width: 180px;
+}
