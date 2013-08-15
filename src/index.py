@@ -1,5 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+
+'''A simple music sharer'''
+
 from __future__ import unicode_literals
 
 import re
@@ -13,11 +16,14 @@ from flask import Flask, \
     url_for, request, abort
 from xml.dom.minidom import parse
 
+# Path to analyze
 MUSIC_PATH = "/home/dab/Musique"
 
+# Initaling Flask application
 app = Flask("MusicPlayer")
 
 def joinurl(path1, path2):
+    '''Join two url parts'''
 	p1e = path1.endswith("/")
 	p2e = path2.startswith("/")
 	if p1e and p2e:
@@ -29,6 +35,7 @@ def joinurl(path1, path2):
 
 
 def extended_glob(path,extensions):
+    '''A prettier syntax to glob files'''
     retr_datas = []
     for extension in extensions:
         retr_datas += glob.glob(joinurl(path,"*."+extension))
@@ -73,14 +80,17 @@ def find_file(path, track):
 
 @app.route("/")
 def main():
+    """Main view (lists artists)"""
     return render_template("template.html",pagetitle="Music",items=generate_list())
     
 @app.route("/explore")
 def explore():
+    """Default view => main"""
     return redirect(url_for('main'))
         
 @app.route("/explore/<artist>")
 def get_by_artist(artist=None):
+    """Lists albums"""
     if artist != None:
         return render_template("template.html",pagetitle=artist,items=generate_list(artist+"/*"),pageparent="/explore/")
     else:
@@ -88,6 +98,7 @@ def get_by_artist(artist=None):
         
 @app.route("/explore/<artist>/<album>")
 def get_by_album(artist=None, album=None):
+    """Lists tracks"""
     if artist != None and album != None:
         try:
             content = parse(urllib.urlopen("http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=5b178049274207a42b2f9476652bb6dc&artist="+urllib.quote_plus(artist)+"&album="+urllib.quote_plus(album)))
@@ -100,6 +111,7 @@ def get_by_album(artist=None, album=None):
         
 @app.route("/explore/<artist>/<album>/<track>")
 def get_by_track(artist=None, album=None, track=None):
+    """Play track and show lyrics"""
     if artist != None and album != None and track != None:
         song_infos = None
         while song_infos == None:
@@ -123,6 +135,7 @@ def get_by_track(artist=None, album=None, track=None):
        
 @app.route("/assets/<artist>/<album>/<track>.mp3")
 def get_raw_sound(artist=None, album=None, track=None): 
+    """Serve track"""
     if artist != None and album != None and track != None:
         filename = find_file(artist+"/"+album, track)
         with open(filename) as song:
@@ -135,6 +148,7 @@ def get_raw_sound(artist=None, album=None, track=None):
 
 @app.route("/assets/<file>")
 def asset(file=None):
+    """Serve assets"""
     if file != None:
         try:
             datas = open(os.path.join('assets',file)).read()
