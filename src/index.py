@@ -24,14 +24,14 @@ app = Flask("MusicPlayer")
 
 def joinurl(path1, path2):
     '''Join two url parts'''
-	p1e = path1.endswith("/")
-	p2e = path2.startswith("/")
-	if p1e and p2e:
-		return path1[0:-1] + path2
-	elif p1e or p2e:
-		return path1 + path2
-	else:
-		return path1 + "/" + path2
+    p1e = path1.endswith("/")
+    p2e = path2.startswith("/")
+    if p1e and p2e:
+        return path1[0:-1] + path2
+    elif p1e or p2e:
+        return path1 + path2
+    else:
+        return path1 + "/" + path2
 
 
 def extended_glob(path,extensions):
